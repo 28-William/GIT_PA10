@@ -14,4 +14,11 @@ public class Obstacle : MonoBehaviour
         else
             transform.Translate(Vector3.right * Time.deltaTime * -Speed);
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Point"))
+        {
+            GameManager.Score++;
+        }
+    }
 }

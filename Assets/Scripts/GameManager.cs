@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager thisManager = null;  
+    public static GameManager thisManager = null;
     [SerializeField] private Text Txt_Score = null;
     [SerializeField] private Text Txt_Message = null;
-    private int Score = 0;
+    public static int Score = 0;
 
     void Start()
     {
@@ -20,12 +21,11 @@ public class GameManager : MonoBehaviour
     {
         if (Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Return))
             StartGame();
-    }
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            Txt_Score.text = "SCORE: " + Score;
 
-    public void UpdateScore(int value)
-    {
-        Score += value;
-        Txt_Score.text = "SCORE : " + Score;
+        }
     }
 
     private void StartGame()
@@ -33,13 +33,17 @@ public class GameManager : MonoBehaviour
         Score = 0;
         Time.timeScale = 1;
         Txt_Message.text = "";
-        Txt_Score.text = "SCORE : 0";
+        Txt_Score.text = "SCORE: 0";
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
-        Txt_Message.text = "GAMEOVER! \nPRESS ENTER TO RESTART GAME.";
+        Txt_Message.text = "GAME OVER! \nPRESS ENTER TO RESTART GAME.";
         Txt_Message.color = Color.red;
+    }
+    public void OnRestartBtn()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }
