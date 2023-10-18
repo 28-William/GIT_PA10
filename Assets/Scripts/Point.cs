@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Point : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class Point : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             GameManager.Score++;
+            Destroy(other);
         }
     }
 }

@@ -7,24 +7,27 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager thisManager = null;
-    [SerializeField] private Text Txt_Score = null;
+    [SerializeField] public static Text Txt_Score = null;
     [SerializeField] private Text Txt_Message = null;
     public static int Score = 0;
 
-    void Start()
+    public void Start()
     {
         thisManager = this;
         Time.timeScale = 0;
     }
 
-    void Update()
+    public void Update()
     {
+        print(Score);
         if (Time.timeScale == 0 && Input.GetKeyDown(KeyCode.Return))
+        {
             StartGame();
+        }
+
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             Txt_Score.text = "SCORE: " + Score;
-
         }
     }
 
@@ -36,12 +39,12 @@ public class GameManager : MonoBehaviour
         Txt_Score.text = "SCORE: 0";
     }
 
-    public void GameOver()
+    /*public void GameOver()
     {
         Time.timeScale = 0;
         Txt_Message.text = "GAME OVER! \nPRESS ENTER TO RESTART GAME.";
         Txt_Message.color = Color.red;
-    }
+    }*/
     public void OnRestartBtn()
     {
         SceneManager.LoadScene("SampleScene");
